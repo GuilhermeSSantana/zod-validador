@@ -3,13 +3,24 @@ import { useUsers } from './hooks/useUsers'
 function App() {
   const { users, error } = useUsers()
 
-  if (error) {
-    return <div>
 
-      <h1>Users List</h1>
-      <h3> Opa, desculpe algo inesperado aconteceu</h3>
-      {error}
-    </div>
+
+
+
+  if (error) {
+
+    return (
+      <div>
+        <h1>Users List</h1>
+        <ul>
+          {error.map((err, index) => (
+            <li key={index}>
+              <span>{err.message}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 
 

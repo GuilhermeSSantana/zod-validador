@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { z } from 'zod';
+import { ZodIssue, z } from 'zod';
 
 const UserSchema = z.object({
     id: z.number(),
@@ -13,7 +13,7 @@ type UsersSchema = z.infer<typeof UsersSchema>;
 export const useUsers = () => {
     const [users, setUsers] = useState<UsersSchema>([]);
 
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<ZodIssue[]>();
 
 
     useEffect(() => {
@@ -26,9 +26,8 @@ export const useUsers = () => {
                     setUsers(resultado.data);
                 } else {
                     console.error(resultado.error);
-                    setError(resultado.error.message);
+                    setError(resultado.error.issues);
                 }
-
             });
     }, []);
 
