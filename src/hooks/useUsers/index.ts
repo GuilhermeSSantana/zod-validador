@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { ZodIssue, z } from 'zod';
 
 const UserSchema = z.object({
-    id: z.number(),
-    name: z.string().max(100),
+    id: z.number({
+        required_error: 'Tudo precisa de um id',
+    }),
+    name: z.string({ required_error: 'Tudo precisa de um nome' }).max(100),
 });
 
 const UsersSchema = z.array(UserSchema);
